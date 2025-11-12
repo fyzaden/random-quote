@@ -8,6 +8,5 @@ export default function Button({ onClick, type, disabled, label = false }) {
     >
       {label}
     </button>
-    //-
   );
 }

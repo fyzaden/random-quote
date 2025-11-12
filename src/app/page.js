@@ -39,7 +39,7 @@ export default function Home() {
               <FaRegHeart className='text-black text-2xl transition-transform duration-300 hover:scale-125' />
             )}
           </button>
-          <span className='text-slate-700 font-medium'>
+          <span className='text-slate-800 font-medium'>
             {currentQuote.likeCount}
           </span>
         </div>
@@ -58,6 +58,5 @@ export default function Home() {
         </button>
       </Card>
     </main>
-    //
   );
 }
