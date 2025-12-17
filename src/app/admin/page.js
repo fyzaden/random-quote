@@ -45,6 +45,5 @@ export default function AdminPage() {
         </form>
       </Card>
     </main>
-    //-
   );
 }

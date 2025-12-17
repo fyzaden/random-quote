@@ -26,7 +26,6 @@ export const QuotesProvider = ({ children }) => {
         {children}
       </QuotesDispatchContext.Provider>
     </QuotesContext.Provider>
-    //-
   );
 };
 export const useQuotesContext = () => useContext(QuotesContext);

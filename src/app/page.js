@@ -1,21 +1,28 @@
 'use client';
+import { useState, useEffect } from 'react';
 import { quotes } from '../../quotes.js';
-import { useState } from 'react';
 import Card from '../components/Card.jsx';
 import { Title, align } from '../components/Title.jsx';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 
 export default function Home() {
-  const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
+  const [currentQuoteIndex, setCurrentQuoteIndex] = useState(null);
   const [quoteList, setQuoteList] = useState(quotes);
   const [likedQuotes, setLikedQuotes] = useState([]);
 
+  useEffect(() => {
+    const randomIndex = Math.floor(Math.random() * quotes.length);
+    setCurrentQuoteIndex(randomIndex);
+  }, []);
+
   function handleSubmit() {
     const randomIndex = Math.floor(Math.random() * quoteList.length);
-
     setCurrentQuoteIndex(randomIndex);
   }
+
   function handleLike() {
+    if (currentQuoteIndex === null) return;
+
     const updatedQuotes = [...quoteList];
     updatedQuotes[currentQuoteIndex].likeCount += 1;
     setQuoteList(updatedQuotes);
@@ -24,11 +31,19 @@ export default function Home() {
       setLikedQuotes([...likedQuotes, currentQuoteIndex]);
     }
   }
-
+  if (currentQuoteIndex === null) {
+    return (
+      <main className='flex min-h-dvh items-center justify-center bg-gray-100 dark:bg-slate-900'>
+        <p className='text-gray-800 dark:text-gray-200 text-xl'>
+          Loading quotes...
+        </p>
+      </main>
+    );
+  }
   const currentQuote = quoteList[currentQuoteIndex];
 
   return (
-    <main className='flex min-h-dvh items-center justify-center bg-linear-to-r from-amber-400 to-red-800'>
+    <main className='flex min-h-dvh items-center justify-center bg-gradient-to-r from-amber-400 to-red-800'>
       <Card>
         <div className='flex items-center gap-2 absolute top-4 right-4'>
           {/* Like button */}
@@ -39,7 +54,7 @@ export default function Home() {
               <FaRegHeart className='text-black text-2xl transition-transform duration-300 hover:scale-125' />
             )}
           </button>
-          <span className='text-slate-700 font-medium'>
+          <span className='text-slate-800 font-medium'>
             {currentQuote.likeCount}
           </span>
         </div>
@@ -58,6 +73,5 @@ export default function Home() {
         </button>
       </Card>
     </main>
-    //
   );
 }
